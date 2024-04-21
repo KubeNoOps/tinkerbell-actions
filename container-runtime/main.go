@@ -14,8 +14,8 @@ import (
 const mountAction = "/mountAction"
 
 const DOCKER_LINK = "https://get.docker.com"
-const podman = ""
-const containerd = ""
+const PODMAN_LINK = ""
+const CONTAINERD_LINK = ""
 
 func main() {
 	fmt.Printf("CEXEC - Chroot Exec\n------------------------\n")
@@ -127,8 +127,8 @@ func MountSpecialDirs() error {
 func installContainerRuntime(runtime string) {
 	runtimeURLs := map[string]string{
 		"docker":     DOCKER_LINK,
-		"podman":     "https://get.podman.com",
-		"containerd": "https://get.containerd.com",
+		"podman":     PODMAN_LINK,
+		"containerd": CONTAINERD_LINK,
 	}
 
 	scriptURL, ok := runtimeURLs[runtime]
