@@ -35,9 +35,14 @@ jobs:
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.GHCR_PASSWORD }}
 
-      - name: Docker Buildx (build)
-        working-directory: container-runtime/
-        run: |
-          docker buildx build --output "type=image,push=true" ${{ steps.meta.outputs.buildx_args }} .
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          platforms: linux/amd64,linux/arm64
+          file: container-runtime/Dockerfile

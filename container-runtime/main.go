@@ -14,11 +14,11 @@ import (
 const mountAction = "/mountAction"
 
 const DOCKER_LINK = "https://get.docker.com"
-const PODMAN_LINK = ""
-const CONTAINERD_LINK = ""
+const PODMAN_LINK = "https://raw.githubusercontent.com/mohamed-rafraf/container-runtime/main/scripts/install-podman.sh"
+const CONTAINERD_LINK = "https://raw.githubusercontent.com/mohamed-rafraf/container-runtime/main/scripts/install-containerd.sh"
 
 func main() {
-	fmt.Printf("CEXEC - Chroot Exec\n------------------------\n")
+	fmt.Printf("Installing Container Runtime \n------------------------\n")
 
 	// Parse the environment variables that are passed into the action
 	blockDevice := os.Getenv("BLOCK_DEVICE")
@@ -138,7 +138,7 @@ func installContainerRuntime(runtime string) {
 	}
 
 	log.Infof("Installing %s...", runtime)
-	cmd := exec.Command("sh", "-c", fmt.Sprintf("curl -fsSL %s | sh", scriptURL))
+	cmd := exec.Command("/bin/sh", "-c", fmt.Sprintf("curl -fsSL %s | /bin/sh", scriptURL))
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	cmd.Stdin = os.Stdin
