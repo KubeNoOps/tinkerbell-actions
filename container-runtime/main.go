@@ -146,4 +146,7 @@ func installContainerRuntime(runtime string) {
 	if err := cmd.Run(); err != nil {
 		log.Fatalf("Failed to install %s: %v", runtime, err)
 	}
+	if err := cmd.Wait(); err != nil {
+		log.Fatalf("Error during waiting the installation of  [%s] [%v]", runtime, err)
+	}
 }
