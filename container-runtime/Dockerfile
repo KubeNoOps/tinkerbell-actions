@@ -9,5 +9,6 @@ RUN --mount=type=cache,sharing=locked,id=gomod,target=/go/pkg/mod/cache \
     CGO_ENABLED=1 GOOS=linux go build -a -ldflags "-linkmode external -extldflags '-static' -s -w" -o container-runtime
 
 FROM alpine
+RUN apk add  --no-cache curl
 COPY --from=container-runtime /src/container-runtime/container-runtime /usr/bin/container-runtime
 ENTRYPOINT ["/usr/bin/container-runtime"]
